@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>USMO OBS Overlay</title><style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;font-family:Arial,sans-serif}
+#bar{position:absolute;top:36px;left:50%;transform:translateX(-50%);height:76px;min-width:780px;display:flex;align-items:stretch;background:#090b0e;color:#fff;border-radius:15px;overflow:hidden;box-shadow:0 8px 30px #0008}
+.team{width:230px;display:flex;align-items:center;gap:12px;padding:10px 16px;font-size:22px;font-weight:900}.team.r{justify-content:flex-end}
+.badge{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#111;font-size:12px;font-weight:1000;border:2px solid #ddd}.badge.ocs{background:#151515;color:#fff}
+.score{display:flex;align-items:center;gap:12px;padding:0 24px;background:#fff;color:#111;font-size:30px;font-weight:1000}
+.clock{display:flex;align-items:center;padding:0 16px;background:#23272e;font-weight:900;font-variant-numeric:tabular-nums}
+#fx{position:absolute;inset:0;overflow:hidden;pointer-events:none}.ball{position:absolute;left:-80px;top:50%;transform:translateY(-50%);font-size:55px;opacity:0}.flash{position:absolute;top:0;bottom:0;left:-45%;width:40%;background:linear-gradient(90deg,transparent,#fff,#fff,transparent);transform:skewX(-18deg);opacity:0}
+#goal{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#fff;color:#090b0e;font-size:34px;font-weight:1000;letter-spacing:.15em;transform:scaleX(0)}
+.go .ball{animation:ball .7s cubic-bezier(.2,.8,.2,1)}.go .flash{animation:flash .62s ease-out}.go #goal{animation:goal 1.25s .42s both}
+@keyframes ball{0%{left:-80px;opacity:1;transform:translateY(-50%) rotate(0) scale(.7)}100%{left:110%;opacity:1;transform:translateY(-50%) rotate(900deg) scale(1.1)}}@keyframes flash{0%{left:-45%;opacity:0}20%{opacity:1}100%{left:120%;opacity:0}}@keyframes goal{0%{transform:scaleX(0)}18%,72%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+</style></head><body>
+<div id="bar"><div class="team"><div class="badge">USMO</div>USMO</div><div class="score"><span id="h">0</span><span>–</span><span id="a">0</span></div><div class="team r">OCS<div class="badge ocs">OCS</div></div><div id="clock" class="clock">00:00</div>
+<div id="fx"><div class="flash"></div><div class="ball">⚽</div><div id="goal">GOAL · USMO</div></div></div>
+<script>
+const KEY='usmo_obs_state_v1'; let lastGoal=0;
+function get(){try{return JSON.parse(localStorage.getItem(KEY))||{h:0,a:0,sec:0,running:false,goal:0,side:'USMO'}}catch(e){return{h:0,a:0,sec:0,running:false,goal:0,side:'USMO'}}}
+function render(){const s=get();document.getElementById('h').textContent=s.h;document.getElementById('a').textContent=s.a;document.getElementById('clock').textContent=String(Math.floor(s.sec/60)).padStart(2,'0')+':'+String(s.sec%60).padStart(2,'0');if(s.goal&&s.goal!==lastGoal){lastGoal=s.goal;document.getElementById('goal').textContent='GOAL · '+s.side;const b=document.getElementById('bar');b.classList.remove('go');void b.offsetWidth;b.classList.add('go');setTimeout(()=>b.classList.remove('go'),1900)}}
+setInterval(render,120);render();
+</script></body></html>
