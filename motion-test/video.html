@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>USMO Motion Test</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--blue:#0b16b0;--navy:#07106e;--deep:#050a52;--yellow:#f4ff3a;--cyan:#38d6ff;--red:#d81e2c;--green:#0a8f4a}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;overflow:hidden;background:var(--blue);font-family:'Cairo',sans-serif;color:#fff}
+#stage{position:relative;width:540px;height:960px;overflow:hidden;background:radial-gradient(120% 80% at 50% 40%,#1424d6 0%,#0b16b0 55%,#060d78 100%)}
+.abs{position:absolute;will-change:transform,opacity}
+.scene{position:absolute;inset:0;display:none}
+.ctr{left:50%;top:50%}
+/* background */
+#tiles{position:absolute;left:-300px;top:-300px;width:1200px;height:1600px;opacity:.55}
+.leaf{position:absolute;border-radius:50% 0 50% 0;background:#030845;filter:blur(18px);opacity:.45}
+/* header */
+#logoL{top:26px;left:22px;font-family:'Lalezar';font-size:30px;line-height:.9;direction:ltr;text-align:center;color:#fff;text-shadow:0 0 0 #fff}
+#logoL small{display:block;font-size:13px;letter-spacing:1px;color:var(--yellow)}
+#logoR{top:22px;right:20px;font-family:'Lalezar';font-size:27px;line-height:.95;transform:skewX(-8deg) rotate(-4deg);color:#fff;-webkit-text-stroke:5px var(--cyan);paint-order:stroke fill;text-align:center}
+/* text */
+.line{position:absolute;left:0;right:0;display:flex;justify-content:center;gap:12px;font-weight:900;white-space:nowrap}
+.w{display:inline-block;position:relative}
+.hl{position:absolute;inset:4px -8px 0 -8px;background:var(--yellow);z-index:-1;transform-origin:right center}
+.pill{background:var(--navy);color:#fff;font-weight:900;padding:4px 22px 8px;border-radius:6px;white-space:nowrap}
+.year{font-family:'Lalezar';background:var(--navy);color:var(--yellow);border:3px solid #fff;border-radius:14px;padding:4px 22px 0;line-height:1.2;direction:ltr;white-space:nowrap}
+.card{background:#fff;color:#111;box-shadow:0 18px 40px #0007;overflow:hidden}
+.cap{font-weight:900;color:#fff;text-align:center;white-space:nowrap;text-shadow:0 3px 0 #0006}
+#grain{position:absolute;inset:-50px;opacity:.10;mix-blend-mode:overlay;pointer-events:none}
+#vign{position:absolute;inset:0;pointer-events:none;background:radial-gradient(100% 70% at 50% 50%,transparent 60%,#0008 100%)}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- animated background -->
+  <svg id="tiles" class="abs" viewBox="0 0 1200 1600">
+    <defs>
+      <pattern id="pt" width="90" height="90" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+        <rect x="8" y="8" width="70" height="70" rx="12" fill="#1a2cf0" opacity=".55"/>
+        <rect x="8" y="8" width="70" height="70" rx="12" fill="none" stroke="#3b52ff" stroke-width="2" opacity=".5"/>
+      </pattern>
+      <radialGradient id="tmask"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
+      <mask id="tm"><rect width="1200" height="1600" fill="url(#tmask)"/></mask>
+    </defs>
+    <rect width="1200" height="1600" fill="url(#pt)" mask="url(#tm)"/>
+  </svg>
+  <div id="leaves"></div>
+
+  <!-- SCENE 1 : hook -->
+  <div class="scene" id="s1">
+    <svg id="ball" class="abs" width="150" height="150" viewBox="-50 -50 100 100" style="left:195px;top:250px">
+      <defs><radialGradient id="bg1" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".75" stop-color="#e9ecf5"/><stop offset="1" stop-color="#aab0c8"/></radialGradient>
+      <clipPath id="bc"><circle r="46"/></clipPath></defs>
+      <ellipse id="ballShadow" cx="0" cy="52" rx="34" ry="5" fill="#000" opacity=".3"/>
+      <g id="ballSpin">
+        <circle r="46" fill="url(#bg1)"/>
+        <g clip-path="url(#bc)" fill="#141a33">
+          <polygon points="0,-16 15.2,-4.9 9.4,12.9 -9.4,12.9 -15.2,-4.9"/>
+          <polygon points="0,-62 18,-50 12,-34 -12,-34 -18,-50"/>
+          <polygon points="44,-26 58,-10 50,8 36,0 32,-16"/>
+          <polygon points="-44,-26 -32,-16 -36,0 -50,8 -58,-10"/>
+          <polygon points="30,38 40,24 54,30 50,52 30,54"/>
+          <polygon points="-30,38 -30,54 -50,52 -54,30 -40,24"/>
+        </g>
+        <g stroke="#141a33" stroke-width="2.2" fill="none" clip-path="url(#bc)">
+          <path d="M0,-16 L0,-34 M15.2,-4.9 L32,-16 M9.4,12.9 L30,38 M-9.4,12.9 L-30,38 M-15.2,-4.9 L-32,-16"/>
+        </g>
+        <circle r="46" fill="none" stroke="#0b1240" stroke-width="2"/>
+      </g>
+    </svg>
+    <div class="line abs" id="s1l1" style="top:470px;font-size:40px">واش عمرك سولتي راسك</div>
+    <div class="line abs" id="s1l2" style="top:530px;font-size:54px">منين بدات <span class="w" data-hl="1">الكورة؟</span></div>
+  </div>
+
+  <!-- SCENE 2 : definition card -->
+  <div class="scene" id="s2">
+    <div class="abs pill" id="s2pill" style="top:150px;left:50%;font-size:30px">كرة القدم</div>
+    <div class="abs card" id="s2card" style="left:110px;top:230px;width:320px;height:470px;border-radius:4px">
+      <div class="line" id="s2l1" style="top:34px;font-size:34px;color:#111">رياضة كتجمع</div>
+      <div class="line" id="s2l2" style="top:84px;font-size:34px;color:#111"><span class="w" data-hl="1">ملايير الناس</span></div>
+      <svg id="player" class="abs" viewBox="0 0 200 240" style="left:40px;top:160px;width:240px;height:290px">
+        <defs><radialGradient id="pg" cx=".45" cy=".3" r=".8"><stop offset="0" stop-color="#3a3f55"/><stop offset="1" stop-color="#05070f"/></radialGradient></defs>
+        <g fill="none" stroke="url(#pg)" stroke-linecap="round" stroke-linejoin="round">
+          <path id="pTorso" d="M104,62 L94,128" stroke-width="34"/>
+          <path id="pArmB" d="M100,74 L136,92 L160,80" stroke-width="15"/>
+          <path id="pArmF" d="M98,72 L64,96 L46,124" stroke-width="15"/>
+          <path id="pLegS" d="M94,128 L88,176 L96,226" stroke-width="22"/>
+          <path id="pLegK" d="M96,130 L136,150 L170,140" stroke-width="22"/>
+        </g>
+        <circle cx="110" cy="34" r="20" fill="url(#pg)"/>
+        <g id="pBall"><circle cx="186" cy="132" r="12" fill="#fff" stroke="#111" stroke-width="2"/><circle cx="186" cy="132" r="4" fill="#111"/></g>
+      </svg>
+      <div id="cardLeaf" class="abs" style="inset:0;background:radial-gradient(40% 25% at 20% 30%,#0b16b033,transparent),radial-gradient(30% 30% at 85% 70%,#0b16b02a,transparent)"></div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 : torn photo 1863 -->
+  <div class="scene" id="s3">
+    <svg id="torn" class="abs" width="540" height="960" viewBox="0 0 540 960" style="left:0;top:0">
+      <defs>
+        <clipPath id="tornClip"><path id="tornPath"/></clipPath>
+        <filter id="sepia"><feColorMatrix type="matrix" values=".39 .77 .19 0 0  .35 .69 .17 0 0  .27 .53 .13 0 0  0 0 0 1 0"/></filter>
+        <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .3  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .35 0"/></filter>
+        <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8d6b0"/><stop offset="1" stop-color="#c9a877"/></linearGradient>
+      </defs>
+      <g clip-path="url(#tornClip)">
+        <g id="londonScene">
+          <rect x="-40" y="-40" width="620" height="1040" fill="url(#sky3)"/>
+          <circle cx="380" cy="250" r="70" fill="#f3e6c8" opacity=".8"/>
+          <!-- skyline -->
+          <g fill="#6b4f2e" opacity=".55">
+            <rect x="-20" y="430" width="120" height="300"/><rect x="90" y="390" width="70" height="340"/>
+            <rect x="330" y="410" width="90" height="320"/><rect x="410" y="450" width="160" height="280"/>
+            <polygon points="150,400 200,340 250,400"/>
+          </g>
+          <!-- clock tower -->
+          <g fill="#4a3219">
+            <rect x="236" y="250" width="64" height="480"/>
+            <polygon points="230,250 268,150 306,250"/>
+            <rect x="262" y="110" width="12" height="45"/>
+            <circle cx="268" cy="300" r="24" fill="#f1e2bf"/>
+            <circle cx="268" cy="300" r="24" fill="none" stroke="#4a3219" stroke-width="4"/>
+            <path d="M268,300 L268,284 M268,300 L280,306" stroke="#4a3219" stroke-width="3"/>
+          </g>
+          <!-- ground & players -->
+          <rect x="-40" y="700" width="620" height="300" fill="#8a6a3c"/>
+          <path d="M-40,700 Q270,670 580,700" fill="#9c7a47"/>
+          <g fill="#2c1d0c">
+            <g id="oldP1"><circle cx="150" cy="676" r="13"/><rect x="138" y="690" width="24" height="52" rx="8"/><rect x="136" y="738" width="10" height="48" rx="5" transform="rotate(12 141 738)"/><rect x="152" y="738" width="10" height="48" rx="5" transform="rotate(-20 157 738)"/></g>
+            <g id="oldP2"><circle cx="380" cy="680" r="13"/><rect x="368" y="694" width="24" height="52" rx="8"/><rect x="366" y="742" width="10" height="46" rx="5" transform="rotate(18 371 742)"/><rect x="382" y="742" width="10" height="46" rx="5" transform="rotate(-8 387 742)"/></g>
+          </g>
+          <g id="oldBall"><circle cx="260" cy="760" r="16" fill="#6b3d17" stroke="#2c1d0c" stroke-width="3"/><path d="M252,754 L268,766 M256,750 L264,758" stroke="#e6cfa0" stroke-width="2"/></g>
+          <rect x="-40" y="-40" width="620" height="1040" filter="url(#paper)"/>
+        </g>
+      </g>
+    </svg>
+    <div class="abs year" id="s3year" style="left:50%;top:790px;font-size:40px">1863</div>
+    <div class="abs cap" id="s3cap" style="left:50%;top:860px;font-size:22px">أول اتحاد للكورة تأسس فـ لندن</div>
+  </div>
+
+  <!-- SCENE 4 : timeline -->
+  <div class="scene" id="s4">
+    <div class="abs pill" id="s4pill" style="top:130px;left:50%;font-size:28px">المغرب والمونديال</div>
+    <div class="abs" id="tline" style="left:430px;top:220px;width:6px;height:600px;background:var(--yellow);border-radius:3px;transform-origin:top"></div>
+    <div id="nodes"></div>
+  </div>
+
+  <!-- SCENE 5 : 2022 -->
+  <div class="scene" id="s5">
+    <div id="confetti"></div>
+    <div class="abs" id="s5num" style="left:50%;top:300px;font-family:'Lalezar';font-size:170px;line-height:1;color:var(--yellow);direction:ltr;text-shadow:0 10px 0 #050a52">2022</div>
+    <div class="abs" id="s5stamp" style="left:50%;top:520px;">
+      <div style="background:var(--red);color:#fff;font-weight:900;font-size:44px;padding:4px 30px 12px;border:4px solid #fff;border-radius:10px;display:flex;align-items:center;gap:14px;white-space:nowrap">
+        <svg width="40" height="40" viewBox="-50 -50 100 100"><path d="M0,-44 L26,36 L-42,-14 L42,-14 L-26,36 Z" fill="none" stroke="#11a050" stroke-width="9" stroke-linejoin="miter"/></svg>
+        نص النهائي
+      </div>
+    </div>
+    <div class="line abs" id="s5l1" style="top:665px;font-size:28px">أول منتخب إفريقي وعربي</div>
+    <div class="line abs" id="s5l2" style="top:713px;font-size:28px">كيوصل لـ <span class="w" data-hl="1" style="color:#111">هاد المرحلة</span></div>
+  </div>
+
+  <!-- SCENE 6 : 2030 -->
+  <div class="scene" id="s6">
+    <svg id="stadium" class="abs" viewBox="0 0 540 400" style="left:0;top:470px;width:540px;height:400px">
+      <defs><linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="pitch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1fa85a"/><stop offset="1" stop-color="#0c6b35"/></linearGradient></defs>
+      <g id="beams" opacity=".35">
+        <polygon points="60,40 0,400 200,400" fill="url(#beam)"/>
+        <polygon points="480,40 340,400 540,400" fill="url(#beam)"/>
+      </g>
+      <path d="M0,170 Q270,90 540,170 L540,400 L0,400 Z" fill="#050a52"/>
+      <g id="crowd"></g>
+      <path d="M40,260 Q270,215 500,260 L540,400 L0,400 Z" fill="url(#pitch)"/>
+      <path d="M40,260 Q270,215 500,260 L540,400 L0,400 Z" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>
+      <ellipse cx="270" cy="320" rx="70" ry="22" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>
+      <line x1="270" y1="237" x2="270" y2="400" stroke="#fff" stroke-width="3" opacity=".7"/>
+      <g fill="#cfd6ff"><rect x="56" y="30" width="10" height="150"/><rect x="474" y="30" width="10" height="150"/>
+      <rect id="lamp1" x="36" y="18" width="50" height="18" rx="3" fill="#fff"/><rect id="lamp2" x="454" y="18" width="50" height="18" rx="3" fill="#fff"/></g>
+    </svg>
+    <div class="abs" id="s6num" style="left:50%;top:150px;font-family:'Lalezar';font-size:150px;line-height:1;color:#fff;direction:ltr;text-shadow:0 8px 0 #050a52">2030</div>
+    <div class="abs" id="flags" style="left:50%;top:330px;display:flex;gap:10px;direction:ltr"></div>
+    <div class="line abs" id="s6l1" style="top:395px;font-size:36px">كاس العالم <span class="w" data-hl="1" style="color:#111">عندنا</span></div>
+  </div>
+
+  <!-- SCENE 7 : outro -->
+  <div class="scene" id="s7">
+    <div class="abs" id="brush" style="left:50%;top:50%;width:560px;height:200px;background:var(--navy);transform-origin:right"></div>
+    <div class="abs" id="bigLogo" style="left:50%;top:400px;font-family:'Lalezar';font-size:120px;line-height:.9;direction:ltr;text-align:center">USMO<div style="font-size:32px;color:var(--yellow);letter-spacing:4px">MOTION · TEST</div></div>
+    <div class="abs cap" id="s7cap" style="left:50%;top:600px;font-size:26px">تابعنا باش تعرف كثر</div>
+    <div class="abs" id="socials" style="left:50%;top:680px;display:flex;gap:12px;direction:ltr"></div>
+  </div>
+
+  <!-- persistent header -->
+  <div class="abs" id="logoL">USMO<small>MEDIA</small></div>
+  <div class="abs" id="logoR">قصة<br>الكورة</div>
+
+  <svg id="grain" viewBox="0 0 640 1060"><filter id="gn"><feTurbulence id="gt" type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="1"/></filter><rect width="640" height="1060" filter="url(#gn)"/></svg>
+  <div id="vign"></div>
+  <div id="flash"></div>
+</div>
+
+<script>
+// ---------- helpers ----------
+const $ = id => document.getElementById(id);
+const clamp = (x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const P = (t,a,b)=>clamp((t-a)/(b-a));
+const out3 = x=>1-Math.pow(1-x,3);
+const outBack = x=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const io = x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const lerp=(a,b,x)=>a+(b-a)*x;
+function rng(seed){return()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646}}
+function tf(el,{x=0,y=0,s=1,sx,sy,r=0,o=1,blur=0,center=false}={}){
+  const c=center?'translate(-50%,-50%) ':'';
+  el.style.transform=`${c}translate(${x}px,${y}px) rotate(${r}deg) scale(${sx??s},${sy??s})`;
+  el.style.opacity=o;
+  el.style.filter=blur>0.2?`blur(${blur}px)`:'';
+}
+
+// split text lines into words for staggered pops
+document.querySelectorAll('.line').forEach(l=>{
+  const nodes=[...l.childNodes];l.innerHTML='';
+  nodes.forEach(n=>{
+    if(n.nodeType===3){n.textContent.trim().split(/\s+/).filter(Boolean).forEach(w=>{const s=document.createElement('span');s.className='w';s.textContent=w;l.appendChild(s)})}
+    else{const hl=document.createElement('i');hl.className='hl';n.prepend(hl);l.appendChild(n)}
+  });
+});
+function popLine(id,t,start,stagger=.08){
+  [...$(id).children].forEach((w,i)=>{
+    const k=P(t,start+i*stagger,start+i*stagger+.35);
+    tf(w,{y:(1-out3(k))*40,s:lerp(.4,1,outBack(k)),o:clamp(k*3)});
+    const hl=w.querySelector('.hl');
+    if(hl){const h=P(t,start+i*stagger+.25,start+i*stagger+.6);hl.style.transform=`scaleX(${out3(h)})`;w.style.color=h>.4?'#111':''}
+  });
+}
+
+// ---------- build procedural bits ----------
+(function leaves(){const r=rng(7),c=$('leaves');for(let i=0;i<7;i++){const d=document.createElement('div');d.className='leaf';d.dataset.x=r()*540;d.dataset.y=r()*960;d.dataset.sp=.4+r();const s=80+r()*160;d.style.width=s+'px';d.style.height=s*1.6+'px';c.appendChild(d)}})();
+
+function tornPath(cx,cy,w,h,seed){const r=rng(seed);const pts=[];const N=46;
+  for(let i=0;i<N;i++){const x=cx-w/2+w*i/(N-1);pts.push([x,cy-h/2+(r()-.3)*38])}
+  for(let i=0;i<N;i++){const y=cy-h/2+h*i/(N-1);pts.push([cx+w/2+(r()-.5)*26,y])}
+  for(let i=N-1;i>=0;i--){const x=cx-w/2+w*i/(N-1);pts.push([x,cy+h/2+(r()-.7)*38])}
+  for(let i=N-1;i>=0;i--){const y=cy-h/2+h*i/(N-1);pts.push([cx-w/2+(r()-.5)*26,y])}
+  return 'M'+pts.map(p=>p.map(v=>v.toFixed(1)).join(',')).join('L')+'Z'}
+
+const NODES=[['1930','أول كاس العالم فـ الأوروغواي'],['1970','المغرب فـ أول مونديال ديالو'],['1986','أول عربي وإفريقي فالدور الثاني'],['2022','الإنجاز التاريخي فـ قطر']];
+NODES.forEach(([y,c],i)=>{const top=250+i*150;
+  $('nodes').insertAdjacentHTML('beforeend',`<div class="abs" id="dot${i}" style="left:421px;top:${top-12}px;width:24px;height:24px;border-radius:50%;background:var(--yellow);border:5px solid var(--navy)"></div>
+  <div class="abs year" id="ny${i}" style="right:130px;top:${top-30}px;font-size:34px">${y}</div>
+  <div class="abs cap" id="nc${i}" style="right:130px;top:${top+26}px;font-size:19px;text-align:right">${c}</div>`)});
+
+(function confetti(){const r=rng(21),c=$('confetti'),cols=['#f4ff3a','#d81e2c','#11a050','#fff','#38d6ff'];
+  for(let i=0;i<70;i++){const d=document.createElement('div');d.className='abs';const w=6+r()*8;
+    Object.assign(d.style,{left:'270px',top:'380px',width:w+'px',height:w*1.8+'px',background:cols[i%5],borderRadius:'2px'});
+    d.dataset.a=r()*Math.PI*2;d.dataset.v=180+r()*320;d.dataset.sp=(r()-.5)*900;c.appendChild(d)}})();
+
+(function crowd(){const r=rng(5);let s='';for(let i=0;i<260;i++){const x=r()*540,y=150+r()*95;if(y<170-Math.sin(x/540*Math.PI)*70)continue;s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(1.5+r()*2).toFixed(1)}" fill="${['#6e7bff','#f4ff3a','#d81e2c','#ffffff'][i%4]}" opacity=".7"/>`}$('crowd').innerHTML=s})();
+
+[['#c1272d','#006233'],['#aa151b','#f1bf00'],['#006600','#ff0000']].forEach(([a,b],i)=>{
+  $('flags').insertAdjacentHTML('beforeend',`<div id="fl${i}" style="width:110px;height:44px;border:3px solid #fff;border-radius:6px;overflow:hidden;display:flex"><div style="flex:1;background:${a}"></div><div style="flex:1;background:${b}"></div></div>`)});
+
+['▶','◎','✦','✉','♪'].forEach((g,i)=>$('socials').insertAdjacentHTML('beforeend',`<div id="so${i}" style="width:44px;height:44px;border-radius:50%;border:3px solid var(--yellow);color:var(--yellow);display:grid;place-items:center;font-size:20px;font-weight:900">${g}</div>`));
+
+// ---------- timeline ----------
+const SC=[['s1',0,3.4],['s2',3.4,7.4],['s3',7.4,11.6],['s4',11.6,17.2],['s5',17.2,21.2],['s6',21.2,25],['s7',25,28.5]];
+const DURATION=28.5, W=.32;
+
+function whip(t,a,b){ // returns x offset & blur for scene in/out
+  const i=P(t,a,a+W), o=P(t,b-W,b);
+  if(t<a+W) return {x:(1-io(i))*-560, blur:Math.sin(i*Math.PI)*14};
+  if(t>b-W && b<DURATION) return {x:io(o)*560, blur:Math.sin(o*Math.PI)*14};
+  return {x:0,blur:0};
+}
+
+window.render=function(t){
+  // background drift
+  tf($('tiles'),{x:Math.sin(t*.4)*30-t*6,y:-t*14%90});
+  [...document.querySelectorAll('.leaf')].forEach((d,i)=>{tf(d,{x:+d.dataset.x+Math.sin(t*d.dataset.sp+i)*40-100,y:+d.dataset.y+Math.cos(t*d.dataset.sp*.7+i)*30-150,r:i*40+t*8})});
+  $('gt').setAttribute('seed',Math.floor(t*15)%50);
+  tf($('logoL'),{o:P(t,.1,.5),y:(1-out3(P(t,.1,.5)))*-30});
+  tf($('logoR'),{o:P(t,.2,.6),s:outBack(P(t,.2,.6))});
+
+  SC.forEach(([id,a,b])=>{const el=$(id);const on=t>=a&&t<b;el.style.display=on?'block':'none';if(on){const w=whip(t,a,b);tf(el,{x:w.x,blur:w.blur})}});
+  // flash on cuts
+  let f=0;SC.forEach(([,a])=>{if(a>0)f=Math.max(f,1-Math.abs(t-a)/.12)});$('flash').style.opacity=clamp(f)*.35;
+
+  // S1 — ball drop + bounce, question
+  {const k=P(t,0,1.6);const bounce=Math.abs(Math.cos(k*Math.PI*2.5))*Math.pow(1-k,1.6);
+   const y=k<.2?lerp(-420,0,out3(k/.2)):-bounce*160; const squash=1-Math.max(0,.18-Math.abs(y)/400)*.9*(1-k);
+   tf($('ball'),{y:y,sx:2-squash,sy:squash,s:1});
+   $('ballSpin').setAttribute('transform',`rotate(${t*220})`);
+   $('ballShadow').setAttribute('opacity',(.35-Math.abs(y)/1200).toFixed(2));
+   const z=P(t,2.4,3.4);tf($('ball'),{y:y-out3(z)*40,sx:(2-squash)*(1+z*.3),sy:squash*(1+z*.3)});
+   popLine('s1l1',t,1.0,.09);popLine('s1l2',t,1.55,.12);}
+
+  // S2 — pill + card + player kick
+  {const a=3.4;tf($('s2pill'),{center:false,x:0,y:(1-outBack(P(t,a+.3,a+.7)))*-60,o:P(t,a+.3,a+.5)});$('s2pill').style.transform='translateX(-50%) '+$('s2pill').style.transform;
+   const c=P(t,a+.15,a+.8);tf($('s2card'),{y:(1-out3(c))*700,r:(1-out3(c))*-12+Math.sin(t*1.3)*.6});
+   popLine('s2l1',t,a+.7,.1);popLine('s2l2',t,a+1.0,.1);
+   const kick=io(P(t,a+1.6,a+2.0))-io(P(t,a+2.8,a+3.4));
+   $('pLegK').setAttribute('d',`M96,130 L${lerp(110,136,kick)},${lerp(176,150,kick)} L${lerp(96,170,kick)},${lerp(222,140,kick)}`);
+   const bk=P(t,a+1.9,a+3);const bx=186+out3(bk)*200, by=132-Math.sin(bk*Math.PI)*90;
+   $('pBall').setAttribute('transform',`translate(${bx-186},${by-132}) rotate(${bk*720} 186 132)`);
+   tf($('player'),{x:0,y:(1-out3(P(t,a+.9,a+1.4)))*40,o:P(t,a+.9,a+1.2)});}
+
+  // S3 — torn reveal 1863
+  {const a=7.4;const k=out3(P(t,a+.1,a+.9));
+   $('tornPath').setAttribute('d',tornPath(270,450+(1-k)*30,lerp(60,470,k),lerp(80,680,k),3+Math.floor(t*6)%3));
+   $('londonScene').setAttribute('transform',`translate(270 450) scale(${1.15-P(t,a,a+4.2)*.12}) translate(-270 -450)`);
+   const pk=Math.sin(t*9);$('oldP1').setAttribute('transform',`translate(${P(t,a,a+4)*40},${Math.abs(pk)*-4})`);
+   $('oldP2').setAttribute('transform',`translate(${P(t,a,a+4)*-30},${Math.abs(Math.cos(t*9))*-4})`);
+   const ob=P(t,a+.6,a+3.6);$('oldBall').setAttribute('transform',`translate(${Math.sin(ob*Math.PI*2)*60},${-Math.abs(Math.sin(ob*Math.PI*3))*50})`);
+   const y=P(t,a+1.1,a+1.5);tf($('s3year'),{s:outBack(y),o:clamp(y*3)});$('s3year').style.transform='translateX(-50%) '+$('s3year').style.transform;
+   const c=P(t,a+1.5,a+1.9);tf($('s3cap'),{y:(1-out3(c))*30,o:c});$('s3cap').style.transform='translateX(-50%) '+$('s3cap').style.transform;}
+
+  // S4 — timeline
+  {const a=11.6;const pk=P(t,a+.2,a+.6);tf($('s4pill'),{y:(1-outBack(pk))*-50,o:pk});$('s4pill').style.transform='translateX(-50%) '+$('s4pill').style.transform;
+   $('tline').style.transform=`scaleY(${io(P(t,a+.4,a+4.4))})`;
+   NODES.forEach((_,i)=>{const s=a+.6+i*1.05;const d=P(t,s,s+.3),yk=P(t,s+.1,s+.5),ck=P(t,s+.3,s+.7);
+     tf($('dot'+i),{s:outBack(d),o:clamp(d*3)});
+     tf($('ny'+i),{x:(1-out3(yk))*-80,o:yk,s:lerp(.6,1,outBack(yk))});
+     tf($('nc'+i),{x:(1-out3(ck))*-40,o:ck});});
+   // gentle camera push
+   $('s4').style.transform+=` scale(${1+P(t,a,a+5.6)*.04})`;}
+
+  // S5 — 2022 count-up + confetti
+  {const a=17.2;const ck=io(P(t,a+.2,a+1.3));const n=Math.round(lerp(1930,2022,ck));
+   $('s5num').textContent=n;const land=P(t,a+1.3,a+1.6);
+   tf($('s5num'),{s:1+Math.sin(land*Math.PI)*.18,o:P(t,a+.1,a+.3)});$('s5num').style.transform='translateX(-50%) '+$('s5num').style.transform;
+   const sk=P(t,a+1.5,a+1.8);tf($('s5stamp'),{s:lerp(2.4,1,out3(sk)),r:lerp(-14,-4,sk),o:sk});$('s5stamp').style.transform='translate(-50%,0) '+$('s5stamp').style.transform;
+   [...$('confetti').children].forEach(d=>{const ct=Math.max(0,t-(a+1.5));const v=+d.dataset.v,an=+d.dataset.a;
+     tf(d,{x:Math.cos(an)*v*ct,y:Math.sin(an)*v*ct-200*ct+420*ct*ct,r:+d.dataset.sp*ct,o:ct>0?clamp(1.6-ct*.5):0})});
+   popLine('s5l1',t,a+2.0,.08);popLine('s5l2',t,a+2.4,.1);
+   // shake on stamp
+   if(sk>0&&sk<1){$('s5').style.transform+=` translate(${Math.sin(t*90)*6*(1-sk)}px,${Math.cos(t*70)*6*(1-sk)}px)`}}
+
+  // S6 — 2030
+  {const a=21.2;const st=P(t,a+.1,a+.9);tf($('stadium'),{y:(1-out3(st))*300});
+   $('beams').setAttribute('opacity',(.2+.25*(.5+.5*Math.sin(t*6))).toFixed(2));
+   const nk=P(t,a+.4,a+.8);tf($('s6num'),{s:outBack(nk),o:clamp(nk*3)});$('s6num').style.transform='translateX(-50%) '+$('s6num').style.transform;
+   [0,1,2].forEach(i=>{const k=P(t,a+.9+i*.15,a+1.25+i*.15);tf($('fl'+i),{y:(1-outBack(k))*40,o:k,r:(1-k)*20})});
+   $('flags').style.transform='translateX(-50%)';
+   popLine('s6l1',t,a+1.5,.12);}
+
+  // S7 — outro
+  {const a=25;const b=P(t,a+.1,a+.5);$('brush').style.transform=`translate(-50%,-50%) translateY(-60px) rotate(-6deg) scaleX(${out3(b)})`;
+   const l=P(t,a+.35,a+.8);tf($('bigLogo'),{s:outBack(l),o:clamp(l*3)});$('bigLogo').style.transform='translate(-50%,-50%) '+$('bigLogo').style.transform;
+   const c=P(t,a+.8,a+1.2);tf($('s7cap'),{y:(1-out3(c))*20,o:c});$('s7cap').style.transform='translateX(-50%) '+$('s7cap').style.transform;
+   $('socials').style.transform='translateX(-50%)';
+   [0,1,2,3,4].forEach(i=>{const k=P(t,a+1.1+i*.08,a+1.4+i*.08);tf($('so'+i),{s:outBack(k),o:clamp(k*3)})});
+   const end=P(t,DURATION-.4,DURATION);$('stage').style.filter=end>0?`brightness(${1-end})`:'';}
+};
+window.DURATION=DURATION;
+document.fonts.ready.then(()=>{window.READY=true});
+if(!/render/.test(location.hash)){let t0=performance.now();(function loop(){render(((performance.now()-t0)/1000)%DURATION);requestAnimationFrame(loop)})()}
+</script>
+</body>
+</html>
